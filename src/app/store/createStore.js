@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import commentsReducer from "./comments";
 import professionsReducer from "./professions";
 import qualitiesReducer from "./qualities";
 import usersReducer from "./users";
@@ -8,7 +9,8 @@ const { combineReducers } = require("redux");
 const rootReducer = combineReducers({
     qualities: qualitiesReducer,
     professions: professionsReducer,
-    users: usersReducer
+    users: usersReducer,
+    comments: commentsReducer
 });
 
 export function createStore() {

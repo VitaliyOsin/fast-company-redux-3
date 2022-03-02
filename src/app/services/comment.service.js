@@ -3,10 +3,13 @@ const commentEndpoint = "comment/";
 
 const commentService = {
     createComment: async (payload) => {
-      try {
-        const { data } = await httpService.put(commentEndpoint + payload._id, payload);
-        return data;
-    } catch (err) {
+        try {
+            const { data } = await httpService.put(
+                commentEndpoint + payload._id,
+                payload
+            );
+            return data;
+        } catch (err) {
             console.log("ERROR", err);
             throw err;
         }
@@ -23,8 +26,8 @@ const commentService = {
     },
     removeComment: async (commentId) => {
         const { data } = await httpService.delete(commentEndpoint + commentId);
+        console.log(data);
         return data;
     }
-
 };
 export default commentService;

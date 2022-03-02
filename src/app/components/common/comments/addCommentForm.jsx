@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import TextAreaField from "../form/textAreaField";
 import { validator } from "../../../utils/ validator";
 import PropTypes from "prop-types";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getCurrentUserId } from "../../../store/users";
+import { nanoid } from "nanoid";
 
 const AddCommentForm = ({ onSubmit }) => {
+    const { userId } = useParams();
+    const currentUserId = useSelector(getCurrentUserId());
     const [data, setData] = useState({});
     const [errors, setErrors] = useState({});
     const handleChange = (target) => {
@@ -35,7 +41,14 @@ const AddCommentForm = ({ onSubmit }) => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
-        onSubmit(data);
+        const comment = {
+            ...data,
+            _id: nanoid(),
+            pageId: userId,
+            created_at: Date.now(),
+            userId: currentUserId
+        };
+        onSubmit(comment);
         clearForm();
     };
 
